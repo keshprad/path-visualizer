@@ -1,6 +1,10 @@
 <script>
-  import { AppBar, Button, Icon } from 'svelte-materialify';
+  import { AppBar, Button, Select } from 'svelte-materialify';
+  import { Icon } from 'svelte-materialify/src';
   import { mdiGithub, mdiHome } from '@mdi/js';
+
+  const algorithms = [{ name: "Dijkstra's", value: 'dijkstra' }];
+  let currAlgorithm = '';
 </script>
 
 <AppBar>
@@ -8,12 +12,19 @@
 
   <div style="flex-grow:1" />
 
-  <a href="https://keshprad.ml">
+  <Select outlined dense items={algorithms} bind:value={currAlgorithm}
+    >Algorithm</Select
+  >
+  <a href="https://keshprad.ml" class="primary-text">
     <Button icon fab size="small">
       <Icon path={mdiHome} />
     </Button>
   </a>
-  <a href="https://github.com/keshprad/path-visualizer" target="_blank">
+  <a
+    href="https://github.com/keshprad/path-visualizer"
+    target="_blank"
+    class="primary-text"
+  >
     <Button icon fab size="small">
       <Icon path={mdiGithub} />
     </Button>

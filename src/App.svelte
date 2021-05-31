@@ -7,7 +7,6 @@
   let theme = 'dark';
   let navHeight, footerHeight, windowWidth, windowHeight;
   $: contentHeight = windowHeight - navHeight - footerHeight;
-  $: console.log(contentHeight / nodeSize);
   let nodeSize = 25;
 </script>
 
@@ -17,7 +16,10 @@
   <div class="navbar" bind:clientHeight={navHeight}>
     <Navbar />
   </div>
-  <div class="content" style="min-height: {contentHeight}px;">
+  <div
+    class="content d-flex align-center"
+    style="min-height: {contentHeight}px;"
+  >
     {#if contentHeight && windowWidth}
       <Graph
         rows={Math.floor(contentHeight / nodeSize)}
@@ -29,10 +31,3 @@
     <Footer />
   </div>
 </MaterialApp>
-
-<style>
-  div.content {
-    display: flex;
-    align-items: center;
-  }
-</style>

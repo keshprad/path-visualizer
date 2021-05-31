@@ -8,13 +8,21 @@
       .fill()
       .map(() => Array(cols));
   let graph = createGraph(rows, cols);
+
+  let start = [1, 2];
+  let target = [5, 10];
 </script>
 
 <div class="graph">
-  {#each graph as row}
+  {#each graph as row, i}
     <div class="row">
-      {#each row as node}
-        <GraphNode />
+      {#each row as node, j}
+        <GraphNode
+          row={i}
+          col={j}
+          isStart={j == start[0] && i == start[1]}
+          isTarget={j == target[0] && i == target[1]}
+        />
       {/each}
     </div>
   {/each}
