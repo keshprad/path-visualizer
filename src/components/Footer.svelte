@@ -6,7 +6,10 @@
   <div class="pa-2 text-center" style="width:100%">
     <p class="ma-1">
       <strong>Path Visualizer</strong> by
-      <a href="https://keshprad.ml" class="primary-text">keshprad</a>.
+      <a href="https://keshprad.ml" class="primary-text">keshprad</a> built with
+      <a href="https://svelte.dev/" target="_blank" class="primary-text"
+        >Svelte</a
+      >.
     </p>
     <p class="ma-1">
       View the source code on <a
