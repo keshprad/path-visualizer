@@ -1,28 +1,35 @@
 <script>
 	import { MaterialApp } from 'svelte-materialify';
 	import Footer from './components/Footer.svelte';
+	import Graph from './components/Graph.svelte'
 	import Navbar from './components/Navbar.svelte';
 
 	let theme = 'dark';
+	let navHeight, footerHeight, windowWidth, windowHeight;
+	$: contentHeight = windowHeight - navHeight - footerHeight;
+	$: console.log(contentHeight/nodeSize)
+	let nodeSize = 25;
 </script>
 
-<MaterialApp {theme} style="min-height: 100vh;">
-	<Navbar />
-	<div class="grid">
-		<h1>Hello World!</h1>
-		<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
+
+<MaterialApp {theme}>
+	<div class="navbar" bind:clientHeight={navHeight}>
+		<Navbar />
 	</div>
-	<Footer />
+	<div class="content" style="min-height: {contentHeight}px;">
+		{#if contentHeight && windowWidth}
+			<Graph rows={Math.floor(contentHeight/nodeSize)} cols={Math.floor(windowWidth/nodeSize)}/>
+		{/if}
+	</div>
+	<div class="footer" bind:clientHeight={footerHeight}>
+		<Footer />
+	</div>
 </MaterialApp>
 
 <style>
-	/* div.grid {
-		height: 100%;
-	} */
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+	div.content {
+		display: flex;
+		align-items: center;
 	}
 </style>
