@@ -1,8 +1,8 @@
 <script>
-  export let row, col, isStart, isTarget;
+  export let x, y, neighbors, weight, isStart, isTarget, isWall;
 </script>
 
-<div class="node" class:isStart class:isTarget />
+<div class="node" class:isStart class:isTarget class:isWall />
 
 <style>
   div.node {
@@ -16,5 +16,8 @@
   }
   div.isTarget {
     background-color: rgb(255, 0, 0);
+  }
+  div.isWall {
+    background-color: #000000;
   }
 </style>

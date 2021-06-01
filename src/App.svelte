@@ -1,8 +1,8 @@
 <script>
   import { MaterialApp } from 'svelte-materialify';
   import Footer from './components/Footer.svelte';
-  import Grid from './components/Grid.svelte';
-  import ForceDirectedGraph from './components/ForceDirectedGraph.svelte';
+  import Grid from './components/Grid/Grid.svelte';
+  // import ForceDirectedGraph from './components/ForceDirectedGraph/FDG.svelte';
   import Navbar from './components/Navbar.svelte';
 
   let theme = 'dark';
@@ -21,13 +21,13 @@
     class="content d-flex align-center"
     style="min-height: {contentHeight}px; height: 0px;"
   >
-    <!-- {#if contentHeight && windowWidth}
+    {#if contentHeight && windowWidth}
       <Grid
         rows={Math.floor(contentHeight / nodeSize)}
         cols={Math.floor(windowWidth / nodeSize)}
       />
-    {/if} -->
-    <ForceDirectedGraph />
+    {/if}
+    <!-- <ForceDirectedGraph /> -->
   </div>
   <div class="footer" bind:clientHeight={footerHeight}>
     <Footer />
