@@ -26,8 +26,6 @@ function createGrid(rows, cols) {
     grid.push(row);
   }
 
-  console.log(grid);
-
   // Create start and target nodes
   let start = [randInt(0, cols), randInt(0, rows)];
   let target = [randInt(0, cols), randInt(0, rows)];
@@ -36,8 +34,6 @@ function createGrid(rows, cols) {
   }
   grid[start[1]][start[0]]['isStart'] = true;
   grid[target[1]][target[0]]['isTarget'] = true;
-
-  // console.log(grid);
 
   return grid;
 }

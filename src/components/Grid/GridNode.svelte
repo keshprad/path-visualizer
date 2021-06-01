@@ -1,5 +1,11 @@
 <script>
-  export let x, y, neighbors, weight, isStart, isTarget, isWall;
+  export let x,
+    y,
+    neighbors,
+    weight,
+    isStart = false,
+    isTarget = false,
+    isWall = false;
 </script>
 
 <div class="node" class:isStart class:isTarget class:isWall />

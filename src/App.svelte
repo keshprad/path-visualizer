@@ -1,5 +1,5 @@
 <script>
-  import { MaterialApp } from 'svelte-materialify';
+  import { MaterialApp } from 'svelte-materialify/src';
   import Footer from './components/Footer.svelte';
   import Grid from './components/Grid/Grid.svelte';
   // import ForceDirectedGraph from './components/ForceDirectedGraph/FDG.svelte';
