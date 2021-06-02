@@ -14,29 +14,49 @@ function createGrid(rows, cols) {
   for (let y = 0; y < rows; y++) {
     let row = [];
     for (let x = 0; x < cols; x++) {
-      let node = { ...baseNode, x: x, y: y };
+      row.push({ ...baseNode, x, y });
+    }
+    grid.push(row);
+  }
+
+  // Put random walls
+  let numWalls = rows * cols * (Math.random() * (0.3 - 0.2) + 0.2);
+  for (let i = 0; i < numWalls; i++) {
+    let wall = [randInt(0, cols), randInt(0, rows)];
+    if (!grid[wall[1]][wall[0]]['isWall']) {
+      grid[wall[1]][wall[0]]['isWall'] = true;
+    }
+  }
+
+  // Find neighbors for all nodes
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
       let neighbors = [
         [[x, y - 1], 1],
         [[x, y + 1], 1],
         [[x - 1, y], 1],
         [[x + 1, y], 1],
-      ].filter((n) => validNode(n[0][0], n[0][1], rows, cols));
+      ].filter((n) => validNode(grid, n[0][0], n[0][1], rows, cols));
 
-      node['neighbors'] = neighbors;
+      grid[y][x]['neighbors'] = neighbors;
       nodes[[x, y]] = {
         neighbors,
         minDistance: Infinity,
         path: [],
       };
-      row.push(node);
     }
-    grid.push(row);
   }
 
   // Create source and target nodes
   let source = [randInt(0, cols), randInt(0, rows)];
+  while (!validNode(grid, source[0], source[1], rows, cols)) {
+    source = [randInt(0, cols), randInt(0, rows)];
+  }
   let target = [randInt(0, cols), randInt(0, rows)];
-  while (source[0] == target[0] && source[1] == target[1]) {
+  while (
+    !validNode(grid, target[0], target[1], rows, cols) ||
+    (source[0] == target[0] && source[1] == target[1])
+  ) {
     target = [randInt(0, cols), randInt(0, rows)];
   }
   grid[source[1]][source[0]]['isStart'] = true;
@@ -46,8 +66,8 @@ function createGrid(rows, cols) {
 }
 
 // Check whether a node is a valid (non-wall) node.
-function validNode(x, y, rows, cols) {
-  return 0 <= y && y < rows && 0 <= x && x < cols;
+function validNode(grid, x, y, rows, cols) {
+  return 0 <= y && y < rows && 0 <= x && x < cols && !grid[y][x]['isWall'];
 }
 
 function randInt(min, max) {

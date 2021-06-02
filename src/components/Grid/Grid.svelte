@@ -1,12 +1,16 @@
 <script>
   import { getContext } from 'svelte';
-  import GridNode from './GridNode.svelte';
-  import { createGrid } from './grid.js';
   import { dijkstra } from '../../algorithms/dijkstra';
+  import { createGrid } from './grid.js';
   import _ from 'lodash';
+
+  // Components
+  import GridNode from './GridNode.svelte';
+  import TextSnackbar from '../TextSnackbar.svelte';
 
   export let rows, cols;
   let { grid, nodes, source, target } = createGrid(rows, cols);
+  let pathNotFound;
 
   // Get context from App.svelte
   let algorithm = getContext('runAlgorithm');
@@ -31,16 +35,19 @@
       }, 100);
 
       // Decide whether to break loop
-      if (n[0] == target[0] && n[1] == target[1]) {
-        return false;
-      }
-      return true;
+      return n[0] != target[0] || n[1] != target[1];
     });
-    targetPath.forEach((n) => {
-      setTimeout(() => {
-        grid[n[1]][n[0]]['isPath'] = true;
-      }, 500);
-    });
+
+    // Show a popup if no path found to targetPath
+    if (targetPath.length == 0) {
+      pathNotFound = true;
+    } else {
+      targetPath.forEach((n) => {
+        setTimeout(() => {
+          grid[n[1]][n[0]]['isPath'] = true;
+        }, 500);
+      });
+    }
   }
 </script>
 
