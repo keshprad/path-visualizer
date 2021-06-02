@@ -13,24 +13,33 @@
   // handle algorithm execute
   function runAlgorithm(algorithm) {
     if (algorithm != null && algorithm != '') {
+      let targetPath, visitedInOrder;
       if (algorithm == 'dijkstra') {
-        let { targetPath, visitedInOrder } = dijkstra(
-          _.cloneDeep(nodes),
-          source,
-          target
-        );
-        animateNodes(targetPath, visitedInOrder);
+        let result = dijkstra(_.cloneDeep(nodes), source, target);
+        targetPath = result.targetPath;
+        visitedInOrder = result.visitedInOrder;
       }
+      animateNodes(targetPath, visitedInOrder);
     }
   }
   $: runAlgorithm($algorithm);
 
   function animateNodes(targetPath, visitedInOrder) {
-    visitedInOrder.forEach((n) => {
-      grid[n[1]][n[0]]['isVisited'] = true;
+    visitedInOrder.every((n) => {
+      setTimeout(() => {
+        grid[n[1]][n[0]]['isVisited'] = true;
+      }, 100);
+
+      // Decide whether to break loop
+      if (n[0] == target[0] && n[1] == target[1]) {
+        return false;
+      }
+      return true;
     });
     targetPath.forEach((n) => {
-      grid[n[1]][n[0]]['isPath'] = true;
+      setTimeout(() => {
+        grid[n[1]][n[0]]['isPath'] = true;
+      }, 500);
     });
   }
 </script>

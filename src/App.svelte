@@ -3,7 +3,6 @@
   import { MaterialApp } from 'svelte-materialify/src';
   import Footer from './components/Footer.svelte';
   import Grid from './components/Grid/Grid.svelte';
-  // import ForceDirectedGraph from './components/ForceDirectedGraph/FDG.svelte';
   import Navbar from './components/Navbar.svelte';
   import { algorithm } from './stores';
 
@@ -37,7 +36,6 @@
         cols={Math.floor(windowWidth / nodeSize)}
       />
     {/if}
-    <!-- <ForceDirectedGraph /> -->
   </div>
   <div class="footer" bind:clientHeight={footerHeight}>
     <Footer />
