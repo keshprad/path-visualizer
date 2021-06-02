@@ -26,6 +26,16 @@
           ><GridNode {...testNode} isWall={true} />&nbsp;Wall Node</span
         ></ListItem
       >
+      <ListItem style="width: 100%;"
+        ><span style="display: flex; align-items: center;"
+          ><GridNode {...testNode} isVisited={true} />&nbsp;Visited Node</span
+        ></ListItem
+      >
+      <ListItem style="width: 100%;"
+        ><span style="display: flex; align-items: center;"
+          ><GridNode {...testNode} isPath={true} />&nbsp;Path Node</span
+        ></ListItem
+      >
     </List>
   </Menu>
 </div>
