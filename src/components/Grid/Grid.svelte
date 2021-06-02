@@ -7,7 +7,6 @@
 
   export let rows, cols;
   let { grid, nodes, source, target } = createGrid(rows, cols);
-  console.log(grid);
 
   // Get context from App.svelte
   let algorithm = getContext('runAlgorithm');

@@ -6,7 +6,7 @@
 </script>
 
 <div class="ma-2">
-  <Menu>
+  <Menu hover>
     <div slot="activator">
       <Button class="primary-color">View Legend</Button>
     </div>
