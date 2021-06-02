@@ -10,8 +10,7 @@ function dijkstra(nodes, source, target) {
   nodes = result.nodes;
   visitedInOrder = result.visitedInOrder;
 
-  console.log(nodes, visitedInOrder);
-  return { nodes, visitedInOrder };
+  return { targetPath: nodes[target]['path'], visitedInOrder };
 }
 
 function dijkstraHelper(nodes, vertex, unvisited, visitedInOrder) {

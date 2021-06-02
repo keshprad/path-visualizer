@@ -4,6 +4,8 @@ function createGrid(rows, cols) {
     isStart: false,
     isTarget: false,
     isWall: false,
+    isVisited: false,
+    isPath: false,
   };
   let grid = [];
   let nodes = {};
