@@ -4,7 +4,7 @@
   import LegendDropdown from './LegendDropdown.svelte';
 
   const algorithms = [{ name: "Dijkstra's", value: 'dijkstra' }];
-  let currAlgorithm = '';
+  let currAlgorithm;
 
   let socials = [
     { href: 'https://keshprad.ml', target: '', icon: mdiHome },
@@ -14,6 +14,12 @@
       icon: mdiGithub,
     },
   ];
+
+  function runAlg() {
+    if (currAlgorithm == 'dijkstra') {
+      // dijkstra();
+    }
+  }
 </script>
 
 <AppBar>
@@ -21,10 +27,15 @@
 
   <div style="flex-grow:1" />
 
-  <div class="ma-2">
+  <div class="mr-2">
     <Select outlined dense items={algorithms} bind:value={currAlgorithm}
       >Algorithm</Select
     >
+  </div>
+  <div class="mr-2">
+    {#if currAlgorithm != null && currAlgorithm != ''}
+      <Button class="primary-color" on:click={runAlg}>Run</Button>
+    {/if}
   </div>
   <Divider vertical />
   <LegendDropdown />
