@@ -5,12 +5,16 @@ function dijkstra(nodes, source, target) {
   nodes[source]['path'].push(source);
   let unvisited = new Set(Object.keys(nodes));
 
-  nodes = dijkstraHelper(nodes, source, unvisited);
-  console.log(nodes);
-  return nodes;
+  let visitedInOrder = [];
+  const result = dijkstraHelper(nodes, source, unvisited, visitedInOrder);
+  nodes = result.nodes;
+  visitedInOrder = result.visitedInOrder;
+
+  console.log(nodes, visitedInOrder);
+  return { nodes, visitedInOrder };
 }
 
-function dijkstraHelper(nodes, vertex, unvisited) {
+function dijkstraHelper(nodes, vertex, unvisited, visitedInOrder) {
   // base case
   if (unvisited.length == 0 || !nodes.hasOwnProperty(vertex)) {
     return;
@@ -33,13 +37,14 @@ function dijkstraHelper(nodes, vertex, unvisited) {
   });
 
   unvisited.delete(vertex.toString());
+  visitedInOrder.push(vertex);
   const next = nextVertex(nodes, unvisited);
-  dijkstraHelper(nodes, next, unvisited);
-  return nodes;
+  dijkstraHelper(nodes, next, unvisited, visitedInOrder);
+  return { nodes, visitedInOrder };
 }
 
 function nextVertex(nodes, unvisited) {
-  let next,
+  let next = '',
     minimum = Infinity;
   unvisited.forEach((vertex) => {
     if (nodes[vertex]['minDistance'] < minimum) {
@@ -47,7 +52,7 @@ function nextVertex(nodes, unvisited) {
       minimum = nodes[vertex]['minDistance'];
     }
   });
-  return next;
+  return next.split(',').map((n) => Number(n));
 }
 
 export { dijkstra };
