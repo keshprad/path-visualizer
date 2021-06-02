@@ -1,8 +1,10 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { AppBar, Button, Divider, Icon, Select } from 'svelte-materialify';
   import { mdiGithub, mdiHome } from '@mdi/js';
   import LegendDropdown from './LegendDropdown.svelte';
 
+  const dispatch = createEventDispatcher();
   const algorithms = [{ name: "Dijkstra's", value: 'dijkstra' }];
   let currAlgorithm;
 
@@ -15,9 +17,11 @@
     },
   ];
 
-  function runAlg() {
-    if (currAlgorithm == 'dijkstra') {
-      // dijkstra();
+  function runAlgorithm() {
+    if (currAlgorithm != null && currAlgorithm != '') {
+      dispatch('runAlgorithm', {
+        algorithm: currAlgorithm,
+      });
     }
   }
 </script>
@@ -34,7 +38,7 @@
   </div>
   <div class="mr-2">
     {#if currAlgorithm != null && currAlgorithm != ''}
-      <Button class="primary-color" on:click={runAlg}>Run</Button>
+      <Button class="primary-color" on:click={runAlgorithm}>Run</Button>
     {/if}
   </div>
   <Divider vertical />

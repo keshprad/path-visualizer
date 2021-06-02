@@ -9,13 +9,17 @@
   let navHeight, footerHeight, windowWidth, windowHeight;
   $: contentHeight = windowHeight - navHeight - footerHeight;
   let nodeSize = 25;
+
+  function handleRunAlgorithm(event) {
+    console.log(event.detail.algorithm);
+  }
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
 
 <MaterialApp {theme}>
   <div class="navbar" bind:clientHeight={navHeight}>
-    <Navbar />
+    <Navbar on:runAlgorithm={handleRunAlgorithm} />
   </div>
   <div
     class="content d-flex align-center"
