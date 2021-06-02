@@ -1,9 +1,14 @@
 <script>
   import GridNode from './GridNode.svelte';
   import { createGrid } from './grid.js';
+  import { dijkstra } from '../../algorithms/dijkstra';
+  import _ from 'lodash';
 
   export let rows, cols;
-  let grid = createGrid(rows, cols);
+  let { grid, nodes, source, target } = createGrid(rows, cols);
+
+  console.log(source, target);
+  let result = dijkstra(_.cloneDeep(nodes), source, target);
 </script>
 
 <div class="grid-container">
