@@ -73,6 +73,10 @@
   </div>
 </div>
 
+{#if pathNotFound}
+  <TextSnackbar active={pathNotFound} timeout={3000} />
+{/if}
+
 <style>
   div.grid-container {
     height: 100%;
