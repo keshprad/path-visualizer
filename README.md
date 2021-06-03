@@ -2,4 +2,6 @@
 
 [![Deploy to GitHub Pages](https://github.com/keshprad/path-visualizer/actions/workflows/deploy.yml/badge.svg)](https://github.com/keshprad/path-visualizer/actions/workflows/deploy.yml)
 
-[ keshprad.github.io/path-visualizer/ ](https://keshprad.github.io/path-visualizer/)
+[path-visualizer.keshprad.ml](https://path-visualizer.keshprad.ml/)
+
+A [Svelte](https://svelte.dev/) app for pathfinding algorithm visualization. View [here](https://path-visualizer.keshprad.ml/)!
