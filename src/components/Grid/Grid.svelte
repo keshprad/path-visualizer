@@ -5,14 +5,15 @@
   import _ from 'lodash';
 
   // Components
+  import { Button } from 'svelte-materialify';
   import GridNode from './GridNode.svelte';
-  import TextSnackbar from '../TextSnackbar.svelte';
+  import Snackbar from '../Snackbar.svelte';
 
   export let rows, cols;
   let { grid, nodes, source, target } = createGrid(rows, cols);
-  let pathNotFound;
+  let pathFound;
 
-  // Get context from App.svelte
+  // Get algorithm context from App.svelte
   let algorithm = getContext('runAlgorithm');
   // handle algorithm execute
   function runAlgorithm(algorithm) {
@@ -38,16 +39,44 @@
       return n[0] != target[0] || n[1] != target[1];
     });
 
-    // Show a popup if no path found to targetPath
     if (targetPath.length == 0) {
-      pathNotFound = true;
+      setTimeout(() => {
+        pathFound = false;
+      }, 100);
     } else {
       targetPath.forEach((n) => {
         setTimeout(() => {
           grid[n[1]][n[0]]['isPath'] = true;
-        }, 500);
+        }, 100);
       });
+      setTimeout(() => {
+        pathFound = true;
+      }, 100);
     }
+  }
+
+  // Resetting grid
+  function handleNewGrid() {
+    ({ grid, nodes, source, target } = createGrid(rows, cols));
+    $algorithm = '';
+    pathFound = null;
+  }
+  function handleResetGrid() {
+    // Reset nodes to original
+    Object.keys(nodes).forEach((key) => {
+      nodes[key].minDistance = Infinity;
+      nodes[key].path = [];
+    });
+    // Reset grid to original
+    for (let y = 0; y < grid.length; y++) {
+      for (let x = 0; x < grid[y].length; x++) {
+        grid[y][x].isVisited = false;
+        grid[y][x].isPath = false;
+      }
+    }
+    // Reset algorithm store and bool pathFound to original
+    $algorithm = '';
+    pathFound = null;
   }
 </script>
 
@@ -55,9 +84,9 @@
   <div class="grid d-flex flex-column justify-center align-center">
     {#each grid as row, i}
       <div class="row d-flex">
-        {#each row as { isStart, isTarget, isWall, isVisited, isPath, weight, neighbors, x, y }, j}
+        {#each row as { isSource, isTarget, isWall, isVisited, isPath, weight, neighbors, x, y }, j}
           <GridNode
-            bind:isStart
+            bind:isSource
             bind:isTarget
             bind:isWall
             bind:isVisited
@@ -73,9 +102,22 @@
   </div>
 </div>
 
-{#if pathNotFound}
-  <TextSnackbar active={pathNotFound} timeout={3000} />
-{/if}
+<!-- Snackbars -->
+<Snackbar active={pathFound == false}>
+  <!-- Snackbar shouldn't be active on null -->
+  <span slot="context">No path was found!</span>
+  <div slot="actions">
+    <Button text on:click={handleNewGrid}>New Grid</Button>
+  </div>
+</Snackbar>
+
+<Snackbar active={pathFound == true}>
+  <span slot="context">Path found!</span>
+  <div slot="actions">
+    <Button text on:click={handleResetGrid}>Reset Grid</Button>
+    <Button text on:click={handleNewGrid}>New Grid</Button>
+  </div>
+</Snackbar>
 
 <style>
   div.grid-container {

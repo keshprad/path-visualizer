@@ -13,7 +13,7 @@
     <List>
       <ListItem style="width: 100%;"
         ><span style="display: flex; align-items: center;"
-          ><GridNode {...testNode} isStart={true} />&nbsp;Start Node</span
+          ><GridNode {...testNode} isSource={true} />&nbsp;Source Node</span
         ></ListItem
       >
       <ListItem style="width: 100%;"

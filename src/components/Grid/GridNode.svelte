@@ -3,7 +3,7 @@
     y,
     neighbors,
     weight,
-    isStart = false,
+    isSource = false,
     isTarget = false,
     isWall = false,
     isVisited = false,
@@ -12,7 +12,7 @@
 
 <div
   class="node"
-  class:isStart
+  class:isSource
   class:isTarget
   class:isWall
   class:isVisited
@@ -28,12 +28,12 @@
   }
 
   div.isVisited {
-    background-color: #a174e9;
+    background-color: #8e68cc;
   }
   div.isPath {
     background-color: #56b3ff;
   }
-  div.isStart {
+  div.isSource {
     background-color: #2ce607;
   }
   div.isTarget {

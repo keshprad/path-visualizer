@@ -1,7 +1,7 @@
 function createGrid(rows, cols) {
   const baseNode = {
     weight: 1,
-    isStart: false,
+    isSource: false,
     isTarget: false,
     isWall: false,
     isVisited: false,
@@ -20,7 +20,7 @@ function createGrid(rows, cols) {
   }
 
   // Put random walls
-  let numWalls = rows * cols * (Math.random() * (0.3 - 0.2) + 0.2);
+  let numWalls = rows * cols * (Math.random() * (0.45 - 0.3) + 0.3);
   for (let i = 0; i < numWalls; i++) {
     let wall = [randInt(0, cols), randInt(0, rows)];
     if (!grid[wall[1]][wall[0]]['isWall']) {
@@ -59,7 +59,7 @@ function createGrid(rows, cols) {
   ) {
     target = [randInt(0, cols), randInt(0, rows)];
   }
-  grid[source[1]][source[0]]['isStart'] = true;
+  grid[source[1]][source[0]]['isSource'] = true;
   grid[target[1]][target[0]]['isTarget'] = true;
 
   return { grid, nodes, source, target };

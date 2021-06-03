@@ -15,16 +15,13 @@
 
   // Pass a reactive store as context
   setContext('runAlgorithm', algorithm);
-  function handleRunAlgorithm(event) {
-    $algorithm = event.detail.algorithm;
-  }
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
 
 <MaterialApp {theme}>
   <div class="navbar" bind:clientHeight={navHeight}>
-    <Navbar on:runAlgorithm={handleRunAlgorithm} />
+    <Navbar />
   </div>
   <div
     class="content d-flex align-center"
