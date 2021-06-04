@@ -1,6 +1,7 @@
 <script>
   import { getContext } from 'svelte';
   import { dijkstra } from '../../algorithms/dijkstra';
+  import { aStar } from '../../algorithms/aStar';
   import { createGrid } from './grid.js';
   import _ from 'lodash';
 
@@ -20,9 +21,17 @@
     if (algorithm != null && algorithm != '') {
       let targetPath, visitedInOrder;
       if (algorithm == 'dijkstra') {
-        let result = dijkstra(_.cloneDeep(nodes), source, target);
-        targetPath = result.targetPath;
-        visitedInOrder = result.visitedInOrder;
+        ({ targetPath, visitedInOrder } = dijkstra(
+          _.cloneDeep(nodes),
+          source,
+          target
+        ));
+      } else if (algorithm == 'a-star') {
+        ({ targetPath, visitedInOrder } = aStar(
+          _.cloneDeep(nodes),
+          source,
+          target
+        ));
       }
       animateNodes(targetPath, visitedInOrder);
     }
@@ -33,7 +42,7 @@
     visitedInOrder.every((n) => {
       setTimeout(() => {
         grid[n[1]][n[0]]['isVisited'] = true;
-      }, 100);
+      }, 50);
 
       // Decide whether to break loop
       return n[0] != target[0] || n[1] != target[1];
@@ -42,16 +51,16 @@
     if (targetPath.length == 0) {
       setTimeout(() => {
         pathFound = false;
-      }, 100);
+      }, 50);
     } else {
       targetPath.forEach((n) => {
         setTimeout(() => {
           grid[n[1]][n[0]]['isPath'] = true;
-        }, 100);
+        }, 50);
       });
       setTimeout(() => {
         pathFound = true;
-      }, 100);
+      }, 50);
     }
   }
 
@@ -62,11 +71,6 @@
     pathFound = null;
   }
   function handleResetGrid() {
-    // Reset nodes to original
-    Object.keys(nodes).forEach((key) => {
-      nodes[key].minDistance = Infinity;
-      nodes[key].path = [];
-    });
     // Reset grid to original
     for (let y = 0; y < grid.length; y++) {
       for (let x = 0; x < grid[y].length; x++) {

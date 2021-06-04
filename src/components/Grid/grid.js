@@ -20,7 +20,7 @@ function createGrid(rows, cols) {
   }
 
   // Put random walls
-  let numWalls = rows * cols * (Math.random() * (0.45 - 0.3) + 0.3);
+  let numWalls = rows * cols * (Math.random() * (0.4 - 0.25) + 0.25);
   for (let i = 0; i < numWalls; i++) {
     let wall = [randInt(0, cols), randInt(0, rows)];
     if (!grid[wall[1]][wall[0]]['isWall']) {
@@ -41,6 +41,7 @@ function createGrid(rows, cols) {
       grid[y][x]['neighbors'] = neighbors;
       nodes[[x, y]] = {
         neighbors,
+        pos: [x, y],
         minDistance: Infinity,
         path: [],
       };

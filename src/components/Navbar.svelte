@@ -4,7 +4,10 @@
   import LegendDropdown from './LegendDropdown.svelte';
   import { algorithm } from '../stores';
 
-  const algorithms = [{ name: "Dijkstra's", value: 'dijkstra' }];
+  const algorithms = [
+    { name: "Dijkstra's", value: 'dijkstra' },
+    { name: 'A* search', value: 'a-star' },
+  ];
   let currAlgorithm;
 
   let socials = [

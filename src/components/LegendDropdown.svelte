@@ -8,7 +8,7 @@
 <div class="ma-2">
   <Menu hover>
     <div slot="activator">
-      <Button class="primary-color">View Legend</Button>
+      <Button class="black primary-text">View Legend</Button>
     </div>
     <List>
       <ListItem style="width: 100%;"
@@ -39,9 +39,3 @@
     </List>
   </Menu>
 </div>
-
-<style>
-  /* span.list-item {
-    display: inline-block;
-  } */
-</style>
