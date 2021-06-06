@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 function aStar(nodes, source, target) {
   nodes[source]['minDistance'] = 0;
-  nodes[source]['distToTarget'] = euclideanDistance(source, target);
+  nodes[source]['distToTarget'] = manhattanDistance(source, target);
   nodes[source]['path'].push(source);
   let unvisited = new Set(Object.keys(nodes));
 
@@ -28,11 +28,23 @@ function aStarHelper(nodes, vertex, target, unvisited, visitedInOrder) {
     const edgeWeight = n[1];
 
     if (unvisited.has(adjVertex.toString())) {
-      const dist = nodes[vertex]['minDistance'] + edgeWeight;
+      // Creating the heuristic
+      // f(x) = g(x) + h(x)
+      const g = nodes[vertex]['minDistance'] + edgeWeight; // g is the minDist from source to adjVertex
+      nodes[adjVertex]['distToTarget'] = manhattanDistance(adjVertex, target);
+      const h = nodes[adjVertex]['distToTarget']; // h is the approximate dist from adjVertex to target
+      const f = g + h;
 
-      if (nodes[adjVertex]['minDistance'] > dist) {
-        nodes[adjVertex]['minDistance'] = dist;
-        nodes[adjVertex]['distToTarget'] = euclideanDistance(adjVertex, target);
+      // Set minDistance if lower
+      // Update path as needed
+      if (
+        nodes[adjVertex]['minDistance'] + nodes[adjVertex]['distToTarget'] >
+        f
+      ) {
+        nodes[adjVertex]['minDistance'] = Math.min(
+          nodes[adjVertex]['minDistance'],
+          g
+        );
         nodes[adjVertex]['path'] = _.clone(nodes[vertex]['path']).concat([
           adjVertex,
         ]);
@@ -42,7 +54,7 @@ function aStarHelper(nodes, vertex, target, unvisited, visitedInOrder) {
 
   unvisited.delete(vertex.toString());
   visitedInOrder.push(vertex);
-  const next = nextVertex(nodes, unvisited);
+  const next = nextVertex(nodes, unvisited); // Choose new vertex
   aStarHelper(nodes, next, target, unvisited, visitedInOrder);
   return { nodes, visitedInOrder };
 }
@@ -56,7 +68,7 @@ function nextVertex(nodes, unvisited) {
       minimum
     ) {
       next = vertex;
-      minimum = nodes[vertex]['minDistance'];
+      minimum = nodes[vertex]['minDistance'] + nodes[vertex]['distToTarget'];
     }
   });
   next = next.split(',').map((n) => Number(n));
@@ -65,6 +77,10 @@ function nextVertex(nodes, unvisited) {
 
 function euclideanDistance(p1, p2) {
   return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+}
+
+function manhattanDistance(p1, p2) {
+  return Math.abs(p1[0] - p2[0]) + Math.abs(p1[1] - p2[1]);
 }
 
 export { aStar };

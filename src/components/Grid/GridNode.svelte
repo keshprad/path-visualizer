@@ -24,7 +24,7 @@
     height: 23px;
     width: 23px;
     margin: 1px;
-    background-color: #727272;
+    background-color: #9c9c9c;
   }
 
   div.isVisited {

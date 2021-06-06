@@ -33,6 +33,7 @@
           target
         ));
       }
+      console.log(targetPath.length);
       animateNodes(targetPath, visitedInOrder);
     }
   }
@@ -116,6 +117,7 @@
 </Snackbar>
 
 <Snackbar active={pathFound == true}>
+  <!-- Snackbar shouldn't be active on null -->
   <span slot="context">Path found!</span>
   <div slot="actions">
     <Button text on:click={handleResetGrid}>Reset Grid</Button>
