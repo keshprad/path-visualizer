@@ -4,7 +4,7 @@
   import Footer from './components/Footer.svelte';
   import Grid from './components/Grid/Grid.svelte';
   import Navbar from './components/Navbar.svelte';
-  import { algorithm } from './stores';
+  import { algorithm, gridType } from './stores';
 
   // Set app theme
   let theme = 'dark';
@@ -14,7 +14,8 @@
   let nodeSize = 25;
 
   // Pass a reactive store as context
-  setContext('runAlgorithm', algorithm);
+  setContext('runAlgorithmStore', algorithm);
+  setContext('gridTypeStore', gridType);
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />

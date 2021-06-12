@@ -14,9 +14,21 @@
   let { grid, nodes, source, target } = createGrid(rows, cols);
   let pathFound;
 
+  // Get gridType context from App.svelte
+  let gridType = getContext('gridTypeStore');
+  let drawnGridType = $gridType;
+  // Handle create new grid on gridType change
+  function createNewGrid(gridType) {
+    if (gridType != '' && gridType != null && gridType != drawnGridType) {
+      drawnGridType = gridType;
+      ({ grid, nodes, source, target } = createGrid(rows, cols, gridType));
+    }
+  }
+  $: createNewGrid($gridType);
+
   // Get algorithm context from App.svelte
-  let algorithm = getContext('runAlgorithm');
-  // handle algorithm execute
+  let algorithm = getContext('runAlgorithmStore');
+  // Handle algorithm execute
   function runAlgorithm(algorithm) {
     if (algorithm != null && algorithm != '') {
       let targetPath, visitedInOrder;
@@ -33,7 +45,6 @@
           target
         ));
       }
-      console.log(targetPath.length);
       animateNodes(targetPath, visitedInOrder);
     }
   }

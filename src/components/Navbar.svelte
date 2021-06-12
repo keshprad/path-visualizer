@@ -2,8 +2,12 @@
   import { AppBar, Button, Divider, Icon, Select } from 'svelte-materialify';
   import { mdiGithub, mdiHome } from '@mdi/js';
   import LegendDropdown from './LegendDropdown.svelte';
-  import { algorithm } from '../stores';
+  import { algorithm, gridType } from '../stores';
 
+  const gridTypes = [
+    { name: 'Simple Random', value: 'simple-random' },
+    { name: 'Recursive Division Maze', value: 'recursive-division-maze' },
+  ];
   const algorithms = [
     { name: "Dijkstra's", value: 'dijkstra' },
     { name: 'A* search', value: 'a-star' },
@@ -32,6 +36,11 @@
 
   <div style="flex-grow:1" />
 
+  <div class="mr-2">
+    <Select outlined dense items={gridTypes} bind:value={$gridType}
+      >Grid Type</Select
+    >
+  </div>
   <div class="mr-2">
     <Select outlined dense items={algorithms} bind:value={currAlgorithm}
       >Algorithm</Select
