@@ -76,12 +76,14 @@
     }
   }
 
-  // Resetting grid
+  // Creating a new grid
   function handleNewGrid() {
-    ({ grid, nodes, source, target } = createGrid(rows, cols));
+    ({ grid, nodes, source, target } = createGrid(rows, cols, $gridType));
+    console.log($gridType);
     $algorithm = '';
     pathFound = null;
   }
+  // Resetting grid
   function handleResetGrid() {
     // Reset grid to original
     for (let y = 0; y < grid.length; y++) {
