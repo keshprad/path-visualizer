@@ -5,8 +5,9 @@
   import { algorithm, gridType } from '../stores';
 
   const gridTypes = [
-    { name: 'Simple Random', value: 'simple-random' },
     { name: 'Recursive Division Maze', value: 'recursive-division-maze' },
+    { name: 'Simple Random Grid', value: 'simple-random' },
+    { name: 'Blank Grid', value: 'blank' },
   ];
   const algorithms = [
     { name: "Dijkstra's", value: 'dijkstra' },

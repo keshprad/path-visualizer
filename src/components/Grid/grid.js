@@ -1,13 +1,18 @@
 import _ from 'lodash';
-function createGrid(rows, cols, gridType = 'simple-random') {
+function createGrid(rows, cols, gridType) {
   // create the base grid
   let grid = emptyGrid(rows, cols);
   let nodes = {};
 
-  // Put random walls
-  if (gridType == 'simple-random') {
+  // Place walls
+  if (gridType == 'blank') {
+    // do nothing
+    // no walls needed
+  } else if (gridType == 'simple-random') {
+    // place random walls
     grid = simpleRandomWalls(grid, rows, cols);
   } else if (gridType == 'recursive-division-maze') {
+    // create a recursive division maze
     grid = recursiveDivisionMaze(grid, rows, cols);
   }
 
@@ -90,10 +95,11 @@ function recursiveDivisionMaze(grid, rows, cols, offset = [0, 0]) {
     }
   }
 
+  // Create pathways in right, left, and top walls.
   let paths = [
     [randInt(colNum + 1, offset[0] + cols), rowNum],
     [randInt(offset[0], colNum), rowNum],
-    [colNum, randInt(0, rowNum)],
+    [colNum, randInt(offset[1], rowNum)],
   ];
   paths.forEach((path) => {
     grid[path[1]][path[0]]['isWall'] = false;

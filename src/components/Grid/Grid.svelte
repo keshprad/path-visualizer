@@ -11,12 +11,14 @@
   import Snackbar from '../Snackbar.svelte';
 
   export let rows, cols;
-  let { grid, nodes, source, target } = createGrid(rows, cols);
-  let pathFound;
 
   // Get gridType context from App.svelte
   let gridType = getContext('gridTypeStore');
   let drawnGridType = $gridType;
+
+  let { grid, nodes, source, target } = createGrid(rows, cols, $gridType);
+  let pathFound;
+
   // Handle create new grid on gridType change
   function createNewGrid(gridType) {
     if (gridType != '' && gridType != null && gridType != drawnGridType) {
@@ -54,7 +56,7 @@
     visitedInOrder.every((n) => {
       setTimeout(() => {
         grid[n[1]][n[0]]['isVisited'] = true;
-      }, 50);
+      }, 25);
 
       // Decide whether to break loop
       return n[0] != target[0] || n[1] != target[1];
@@ -63,16 +65,16 @@
     if (targetPath.length == 0) {
       setTimeout(() => {
         pathFound = false;
-      }, 50);
+      }, 25);
     } else {
       targetPath.forEach((n) => {
         setTimeout(() => {
           grid[n[1]][n[0]]['isPath'] = true;
-        }, 50);
+        }, 25);
       });
       setTimeout(() => {
         pathFound = true;
-      }, 50);
+      }, 25);
     }
   }
 
