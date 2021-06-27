@@ -10,8 +10,8 @@
     { name: 'Blank Grid', value: 'blank' },
   ];
   const algorithms = [
-    { name: "Dijkstra's", value: 'dijkstra' },
     { name: 'A* search', value: 'a-star' },
+    { name: "Dijkstra's", value: 'dijkstra' },
   ];
   let currAlgorithm;
 

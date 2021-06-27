@@ -47,6 +47,7 @@
           target
         ));
       }
+      console.log(targetPath.length);
       animateNodes(targetPath, visitedInOrder);
     }
   }
@@ -81,7 +82,6 @@
   // Creating a new grid
   function handleNewGrid() {
     ({ grid, nodes, source, target } = createGrid(rows, cols, $gridType));
-    console.log($gridType);
     $algorithm = '';
     pathFound = null;
   }
